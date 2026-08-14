@@ -2,7 +2,7 @@
   "block.opcompat.horse_bed": "Horse Bedding",
   "block.opcompat.dog_bed": "Dog Bed",
   "block.opcompat.cat_bed": "Cat Bed",
-  "tooltip.opcompat.occupied": "Occupied by %",
+  "tooltip.opcompat.occupied": "Occupied by %s",
   "config.jade.plugin_opcompat.bed_occupant": "Occupant",
   "creativetab.opcompat": "Pet Addons"
 }

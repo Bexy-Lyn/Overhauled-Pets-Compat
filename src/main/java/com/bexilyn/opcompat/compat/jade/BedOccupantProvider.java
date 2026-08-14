@@ -113,8 +113,6 @@ public enum BedOccupantProvider
                         petName
                 )
         );
-
-        //TODO: Name not shown
     }
 
     /*

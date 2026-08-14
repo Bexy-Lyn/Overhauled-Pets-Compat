@@ -2,7 +2,6 @@ package com.bexilyn.opcompat.compat.jade;
 
 import com.bexilyn.opcompat.OPCompat;
 import com.bexilyn.opcompat.block.PetBedBlock;
-import com.bexilyn.opcompat.block.entity.HorseBedBlockEntity;
 import com.bexilyn.opcompat.block.entity.PetBedBlockEntity;
 import net.minecraft.resources.ResourceLocation;
 import snownee.jade.api.IWailaClientRegistration;
@@ -26,7 +25,7 @@ public class JadePlugin implements IWailaPlugin {
 
         registration.registerBlockDataProvider(
                 BedOccupantProvider.INSTANCE,
-                HorseBedBlockEntity.class
+                PetBedBlockEntity.class
         );
     }
 
