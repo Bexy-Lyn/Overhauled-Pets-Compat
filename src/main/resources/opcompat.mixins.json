@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.bexilyn.opcompat.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "opcompat.refmap.json",
+  "client": [
+    "ODogDecorLayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
