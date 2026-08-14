@@ -172,7 +172,12 @@ dependencies {
     implementation fg.deobf("local:DragNs_Pet_Overhaul:2.1")
 
     // Transmog
-    implementation fg.deobf("local:transmog:1.3.0")
+    compileOnly fg.deobf("local:transmog:1.3.0")
+    runtimeOnly fg.deobf("local:transmog:1.3.0")
+
+    // Jade
+    compileOnly fg.deobf("local:Jade:11.13.3")
+    runtimeOnly fg.deobf("local:Jade:11.13.3")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

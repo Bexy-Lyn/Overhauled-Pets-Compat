@@ -1,10 +1,12 @@
 package com.bexilyn.opcompat;
 
+import com.bexilyn.opcompat.config.ModServerConfig;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
 import com.bexilyn.opcompat.registry.ModBlocks;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -22,6 +24,15 @@ public class OPCompat {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
 
+        context.registerConfig(
+                        ModConfig.Type.SERVER,
+                        ModServerConfig.SPEC
+                );
+
         LOGGER.info("Overhauled Pets Transmog Compat initialized.");
     }
 }
+
+// TODO: Claim Particles
+// BUG: Restarting resets transmogs
+// TODO: Refractor reusable functions

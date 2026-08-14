@@ -1,3 +1,7 @@
 {
-  "block.opcompat.horse_bed": "Pferdestreu"
+  "block.opcompat.horse_bed": "Pferdestreu",
+  "block.opcompat.dog_bed": "Hundebett",
+  "block.opcompat.cat_bed": "Katzenbett",
+  "tooltip.opcompat.occupied": "Belegt von %",
+  "config.jade.plugin_opcompat.bed_occupant": "Bewohner"
 }

@@ -2,6 +2,7 @@ package com.bexilyn.opcompat.data;
 
 import com.bexilyn.opcompat.OPCompat;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -15,17 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class HorseBedSavedData extends SavedData {
+public class PetBedSavedData extends SavedData {
 
     private static final String DATA_NAME =
-            OPCompat.MOD_ID + "_horse_beds";
+            OPCompat.MOD_ID + "_pet_beds";
 
-    private final Map<UUID, HorseBedLink> links = new HashMap<>();
+    private final Map<UUID, PetBedLink> links = new HashMap<>();
 
-    public static HorseBedSavedData get(ServerLevel level) {
+    public static PetBedSavedData get(ServerLevel level) {
 
-        // Store all links in the Overworld's data storage,
-        // even if we later support beds in other dimensions.
         ServerLevel overworld =
                 level.getServer().getLevel(Level.OVERWORLD);
 
@@ -34,28 +33,29 @@ public class HorseBedSavedData extends SavedData {
         }
 
         return overworld.getDataStorage().computeIfAbsent(
-                HorseBedSavedData::load,
-                HorseBedSavedData::new,
+                PetBedSavedData::load,
+                PetBedSavedData::new,
                 DATA_NAME
         );
     }
 
-    public boolean isLinked(UUID horseUuid) {
-        return links.containsKey(horseUuid);
+    public boolean isLinked(UUID petUuid) {
+        return links.containsKey(petUuid);
     }
 
-    public HorseBedLink getLink(UUID horseUuid) {
-        return links.get(horseUuid);
+    public PetBedLink getLink(UUID petUuid) {
+        return links.get(petUuid);
     }
 
     public void link(
-            UUID horseUuid,
+            UUID petUuid,
             ResourceKey<Level> dimension,
             BlockPos bedPos
     ) {
+
         links.put(
-                horseUuid,
-                new HorseBedLink(
+                petUuid,
+                new PetBedLink(
                         dimension,
                         bedPos.immutable()
                 )
@@ -64,9 +64,9 @@ public class HorseBedSavedData extends SavedData {
         setDirty();
     }
 
-    public void unlink(UUID horseUuid) {
+    public void unlink(UUID petUuid) {
 
-        if (links.remove(horseUuid) != null) {
+        if (links.remove(petUuid) != null) {
             setDirty();
         }
     }
@@ -76,12 +76,12 @@ public class HorseBedSavedData extends SavedData {
 
         ListTag list = new ListTag();
 
-        for (Map.Entry<UUID, HorseBedLink> entry : links.entrySet()) {
+        for (Map.Entry<UUID, PetBedLink> entry : links.entrySet()) {
 
             CompoundTag linkTag = new CompoundTag();
 
             linkTag.putUUID(
-                    "HorseUUID",
+                    "PetUUID",
                     entry.getKey()
             );
 
@@ -103,15 +103,18 @@ public class HorseBedSavedData extends SavedData {
             list.add(linkTag);
         }
 
-        tag.put("Links", list);
+        tag.put(
+                "Links",
+                list
+        );
 
         return tag;
     }
 
-    public static HorseBedSavedData load(CompoundTag tag) {
+    public static PetBedSavedData load(CompoundTag tag) {
 
-        HorseBedSavedData data =
-                new HorseBedSavedData();
+        PetBedSavedData data =
+                new PetBedSavedData();
 
         ListTag list =
                 tag.getList(
@@ -124,12 +127,12 @@ public class HorseBedSavedData extends SavedData {
             CompoundTag linkTag =
                     list.getCompound(i);
 
-            if (!linkTag.hasUUID("HorseUUID")) {
+            if (!linkTag.hasUUID("PetUUID")) {
                 continue;
             }
 
-            UUID horseUuid =
-                    linkTag.getUUID("HorseUUID");
+            UUID petUuid =
+                    linkTag.getUUID("PetUUID");
 
             ResourceLocation dimensionId =
                     new ResourceLocation(
@@ -138,7 +141,7 @@ public class HorseBedSavedData extends SavedData {
 
             ResourceKey<Level> dimension =
                     ResourceKey.create(
-                            net.minecraft.core.registries.Registries.DIMENSION,
+                            Registries.DIMENSION,
                             dimensionId
                     );
 
@@ -148,8 +151,8 @@ public class HorseBedSavedData extends SavedData {
                     );
 
             data.links.put(
-                    horseUuid,
-                    new HorseBedLink(
+                    petUuid,
+                    new PetBedLink(
                             dimension,
                             bedPos
                     )
@@ -159,7 +162,7 @@ public class HorseBedSavedData extends SavedData {
         return data;
     }
 
-    public record HorseBedLink(
+    public record PetBedLink(
             ResourceKey<Level> dimension,
             BlockPos bedPos
     ) {

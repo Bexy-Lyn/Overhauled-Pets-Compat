@@ -1,6 +1,6 @@
 package com.bexilyn.opcompat.block;
 
-import com.bexilyn.opcompat.block.entity.HorseBedBlockEntity;
+import com.bexilyn.opcompat.block.entity.DogBedBlockEntity;
 import com.bexilyn.opcompat.block.entity.PetBedBlockEntity;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -11,13 +11,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class HorseBedBlock extends PetBedBlock {
+public class DogBedBlock extends PetBedBlock {
 
-    public HorseBedBlock(
+    public DogBedBlock(
             Properties properties
     ) {
 
-        super(properties, 2.0D);
+        super(properties, 8.0D);
     }
 
     @Nullable
@@ -27,7 +27,7 @@ public class HorseBedBlock extends PetBedBlock {
             BlockState state
     ) {
 
-        return new HorseBedBlockEntity(
+        return new DogBedBlockEntity(
                 pos,
                 state
         );
@@ -48,7 +48,7 @@ public class HorseBedBlock extends PetBedBlock {
 
         return createTickerHelper(
                 type,
-                ModBlockEntities.HORSE_BED.get(),
+                ModBlockEntities.DOG_BED.get(),
                 PetBedBlockEntity::serverTick
         );
     }
