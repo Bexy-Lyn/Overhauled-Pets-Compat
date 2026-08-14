@@ -1,6 +1,6 @@
 package com.bexilyn.opcompat.block;
 
-import com.bexilyn.opcompat.block.entity.DogBedBlockEntity;
+import com.bexilyn.opcompat.block.entity.CatBedBlockEntity;
 import com.bexilyn.opcompat.block.entity.PetBedBlockEntity;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -27,7 +27,7 @@ public class CatBedBlock extends PetBedBlock {
             BlockState state
     ) {
 
-        return new DogBedBlockEntity(
+        return new CatBedBlockEntity(
                 pos,
                 state
         );
