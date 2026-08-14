@@ -37,6 +37,6 @@ public class OPCompat {
     }
 }
 
-// TODO: Claim Particles
-// BUG: Restarting resets transmogs
+// TODO: BUG - Restarting resets transmogs
 // TODO: Crafting recipes
+// TODO: loot table fixes

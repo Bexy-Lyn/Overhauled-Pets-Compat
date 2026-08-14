@@ -1,7 +1,8 @@
 package com.bexilyn.opcompat.block.entity;
 
-import com.dragn0007.dragnpets.entities.dog.ODog;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
+import com.dragn0007.dragnpets.entities.dog.ODog;
+import com.dragn0007.dragnpets.entities.wolf.OWolf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Wolf;
@@ -29,7 +30,8 @@ public class DogBedBlockEntity
     ) {
 
         return pet instanceof Wolf
-                || pet instanceof ODog;
+                || pet instanceof ODog
+                || pet instanceof OWolf;
     }
 
     @Override
@@ -44,13 +46,6 @@ public class DogBedBlockEntity
     protected boolean canReturnPet(
             TamableAnimal pet
     ) {
-
-        /*
-         * TODO: Placeholder rule.
-         *
-         * We'll refine this once we implement the exact
-         * stay/follow/wander behaviour.
-         */
         return !pet.isOrderedToSit()
                 && !pet.isVehicle();
     }

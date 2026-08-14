@@ -3,6 +3,7 @@ package com.bexilyn.opcompat.block.entity;
 import com.bexilyn.opcompat.config.ModServerConfig;
 import com.bexilyn.opcompat.data.PetBedSavedData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -227,6 +228,8 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
                 getBlockState(),
                 3
         );
+
+        spawnClaimParticles(level);
     }
 
     /*
@@ -606,9 +609,29 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
      * =============================================================
      */
 
+    private void spawnClaimParticles(
+            ServerLevel level
+    ) {
+
+        level.sendParticles(
+                ParticleTypes.HAPPY_VILLAGER,
+
+                worldPosition.getX() + 0.5D,
+                worldPosition.getY() + 0.6D,
+                worldPosition.getZ() + 0.5D,
+
+                10,
+
+                0.45D,
+                0.20D,
+                0.45D,
+
+                0.05D
+        );
+    }
+
     /**
      * Checks whether this particular entity belongs to this bed type.
-     *
      * Example:
      * HorseBed -> vanilla horses and OHorse
      * DogBed   -> vanilla Wolf and ODog

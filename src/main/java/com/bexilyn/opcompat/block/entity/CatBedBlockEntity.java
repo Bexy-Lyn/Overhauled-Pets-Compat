@@ -46,13 +46,6 @@ public class CatBedBlockEntity
     protected boolean canReturnPet(
             TamableAnimal pet
     ) {
-
-        /*
-         * TODO: Placeholder rule.
-         *
-         * We'll refine this once we implement the exact
-         * stay/follow/wander behaviour.
-         */
         return !pet.isOrderedToSit()
                 && !pet.isVehicle();
     }
