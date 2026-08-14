@@ -38,5 +38,4 @@ public class OPCompat {
 }
 
 // TODO: BUG - Restarting resets transmogs
-// TODO: Crafting recipes
-// TODO: loot table fixes
+// TODO: wool colour dependence on collar colour
