@@ -6,7 +6,8 @@
   "refmap": "opcompat.refmap.json",
   "client": [
     "ODogDecorLayerMixin",
-    "OHorseArmorLayerMixin"
+    "OHorseArmorLayerMixin",
+    "OHorseSaddleLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
