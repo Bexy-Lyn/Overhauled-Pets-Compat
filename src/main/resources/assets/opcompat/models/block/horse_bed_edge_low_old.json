@@ -1,0 +1,20 @@
+{
+  "textures": {
+    "hay": "minecraft:block/hay_block_top",
+    "particle": "minecraft:block/hay_block_top"
+  },
+  "elements": [
+    {
+      "from": [2, 0, 0],
+      "to": [14, 1, 2],
+      "faces": {
+        "north": { "texture": "#hay" },
+        "east":  { "texture": "#hay" },
+        "south": { "texture": "#hay" },
+        "west":  { "texture": "#hay" },
+        "up":    { "texture": "#hay" },
+        "down":  { "texture": "#hay" }
+      }
+    }
+  ]
+}

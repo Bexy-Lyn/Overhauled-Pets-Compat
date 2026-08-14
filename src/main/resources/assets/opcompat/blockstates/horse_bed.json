@@ -1,0 +1,165 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "opcompat:block/horse_bed_center"
+      }
+    },
+
+    {
+      "when": { "north": "false" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_low"
+      }
+    },
+    {
+      "when": { "north": "true" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_high"
+      }
+    },
+
+    {
+      "when": { "east": "false" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_low",
+        "y": 90
+      }
+    },
+    {
+      "when": { "east": "true" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_high",
+        "y": 90
+      }
+    },
+
+    {
+      "when": { "south": "false" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_low",
+        "y": 180
+      }
+    },
+    {
+      "when": { "south": "true" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_high",
+        "y": 180
+      }
+    },
+
+    {
+      "when": { "west": "false" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_low",
+        "y": 270
+      }
+    },
+    {
+      "when": { "west": "true" },
+      "apply": {
+        "model": "opcompat:block/horse_bed_edge_high",
+        "y": 270
+      }
+    },
+
+    {
+      "when": {
+        "north": "true",
+        "west": "true",
+        "northwest": "true"
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_high"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          { "north": "false" },
+          { "west": "false" },
+          { "northwest": "false" }
+        ]
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_low"
+      }
+    },
+
+    {
+      "when": {
+        "north": "true",
+        "east": "true",
+        "northeast": "true"
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_high",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          { "north": "false" },
+          { "east": "false" },
+          { "northeast": "false" }
+        ]
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_low",
+        "y": 90
+      }
+    },
+
+    {
+      "when": {
+        "south": "true",
+        "east": "true",
+        "southeast": "true"
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_high",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          { "south": "false" },
+          { "east": "false" },
+          { "southeast": "false" }
+        ]
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_low",
+        "y": 180
+      }
+    },
+
+    {
+      "when": {
+        "south": "true",
+        "west": "true",
+        "southwest": "true"
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_high",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          { "south": "false" },
+          { "south": "false" },
+          { "southwest": "false" }
+        ]
+      },
+      "apply": {
+        "model": "opcompat:block/horse_bed_corner_low",
+        "y": 270
+      }
+    }
+  ]
+}
