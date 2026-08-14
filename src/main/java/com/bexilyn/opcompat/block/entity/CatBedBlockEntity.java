@@ -1,6 +1,5 @@
 package com.bexilyn.opcompat.block.entity;
 
-import com.bexilyn.opcompat.block.ColoredPetBedBlock;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
 import com.dragn0007.dragnpets.entities.cat.OCat;
 import com.dragn0007.dragnpets.entities.ocelot.OOcelot;

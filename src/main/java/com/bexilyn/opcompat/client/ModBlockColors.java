@@ -1,10 +1,9 @@
 package com.bexilyn.opcompat.client;
 
 import com.bexilyn.opcompat.OPCompat;
-import com.bexilyn.opcompat.block.entity.PetBedBlockEntity;
+import com.bexilyn.opcompat.block.ColoredPetBedBlock;
 import com.bexilyn.opcompat.registry.ModBlocks;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,24 +31,20 @@ public final class ModBlockColors {
                         return 0xFFFFFF;
                     }
 
-                    /*
-                     * Item model / inventory rendering.
-                     */
-                    if (level == null || pos == null) {
-                        return 0xFFFFFF;
-                    }
-
-                    BlockEntity blockEntity =
-                            level.getBlockEntity(pos);
-
-                    if (!(blockEntity
-                            instanceof PetBedBlockEntity<?> petBed)) {
+                    if (!state.hasProperty(
+                            ColoredPetBedBlock.COLOR
+                    )) {
 
                         return 0xFFFFFF;
                     }
+
+                    DyeColor color =
+                            state.getValue(
+                                    ColoredPetBedBlock.COLOR
+                            );
 
                     return dyeColorToRgb(
-                            petBed.getBedColor()
+                            color
                     );
                 },
 

@@ -1,5 +1,6 @@
 package com.bexilyn.opcompat.block.entity;
 
+import com.bexilyn.opcompat.block.ColoredPetBedBlock;
 import com.bexilyn.opcompat.config.ModServerConfig;
 import com.bexilyn.opcompat.data.PetBedSavedData;
 import net.minecraft.core.BlockPos;
@@ -31,8 +32,6 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
 
     private UUID linkedPetUuid;
     private String linkedPetName;
-
-    private DyeColor bedColor = DyeColor.WHITE;
 
     private int claimTicker = 0;
     private long lastHandledDay = -1L;
@@ -332,10 +331,6 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
     ) {
     }
 
-    public DyeColor getBedColor() {
-        return bedColor;
-    }
-
     protected void setBedColor(
             ServerLevel level,
             DyeColor color
@@ -345,18 +340,32 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
             color = DyeColor.WHITE;
         }
 
-        if (bedColor == color) {
+        BlockState state =
+                level.getBlockState(
+                        worldPosition
+                );
+
+        if (!(state.getBlock()
+                instanceof ColoredPetBedBlock)) {
+
             return;
         }
 
-        bedColor = color;
+        DyeColor currentColor =
+                state.getValue(
+                        ColoredPetBedBlock.COLOR
+                );
 
-        setChanged();
+        if (currentColor == color) {
+            return;
+        }
 
-        level.sendBlockUpdated(
+        level.setBlock(
                 worldPosition,
-                getBlockState(),
-                getBlockState(),
+                state.setValue(
+                        ColoredPetBedBlock.COLOR,
+                        color
+                ),
                 3
         );
     }
@@ -612,7 +621,13 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
 
         linkedPetUuid = null;
         linkedPetName = null;
-        bedColor = DyeColor.WHITE;
+
+        if (level instanceof ServerLevel serverLevel) {
+            setBedColor(
+                    serverLevel,
+                    DyeColor.WHITE
+            );
+        }
 
         setChanged();
 
@@ -658,11 +673,6 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
             );
         }
 
-        tag.putInt(
-                "BedColor",
-                bedColor.getId()
-        );
-
         tag.putLong(
                 "LastHandledDay",
                 lastHandledDay
@@ -692,19 +702,6 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
                 tag.getLong(
                         "LastHandledDay"
                 );
-
-        if (tag.contains("BedColor")) {
-
-            bedColor =
-                    DyeColor.byId(
-                            tag.getInt("BedColor")
-                    );
-
-        } else {
-
-            bedColor =
-                    DyeColor.WHITE;
-        }
     }
 
     /*

@@ -1,6 +1,7 @@
 package com.bexilyn.opcompat.block;
 
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -27,23 +28,16 @@ public abstract class ColoredPetBedBlock extends PetBedBlock {
                 defaultBlockState()
                         .setValue(
                                 COLOR,
-                                DyeColor.BROWN
+                                DyeColor.WHITE
                         )
         );
     }
 
     @Override
     protected void createBlockStateDefinition(
-            StateDefinition.Builder<
-                    net.minecraft.world.level.block.Block,
-                    BlockState
-                    > builder
+            StateDefinition.Builder<Block, BlockState> builder
     ) {
 
-        /*
-         * PetBedBlock already defines FACING,
-         * so make sure its implementation calls super as described below.
-         */
         super.createBlockStateDefinition(
                 builder
         );

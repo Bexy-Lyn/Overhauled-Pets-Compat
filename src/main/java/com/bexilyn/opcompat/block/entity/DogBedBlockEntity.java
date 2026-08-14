@@ -39,6 +39,10 @@ public class DogBedBlockEntity
             return dog.getCollarColor();
         }
 
+        if (pet instanceof OWolf wolf) {
+            return wolf.getCollarColor();
+        }
+
         return DyeColor.WHITE;
     }
 

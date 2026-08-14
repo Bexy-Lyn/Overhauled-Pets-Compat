@@ -1,50 +1,62 @@
 {
-  "variants": {
-    "facing=north": [
-      {
-        "model": "opcompat:block/cat_bed_1",
-        "weight": 1
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
       },
-      {
-        "model": "opcompat:block/cat_bed_2",
-        "weight": 1
-      }
-    ],
-    "facing=east": [
-      {
-        "model": "opcompat:block/cat_bed_1",
-        "y": 90,
-        "weight": 1
+      "apply": [
+        {
+          "model": "opcompat:block/dog_bed_1"
+        },
+        {
+          "model": "opcompat:block/cat_bed_2"
+        }
+      ]
+    },
+    {
+      "when": {
+        "facing": "east"
       },
-      {
-        "model": "opcompat:block/cat_bed_2",
-        "y": 90,
-        "weight": 1
-      }
-    ],
-    "facing=south": [
-      {
-        "model": "opcompat:block/cat_bed_1",
-        "y": 180,
-        "weight": 1
+      "apply": [
+        {
+          "model": "opcompat:block/cat_bed_1",
+          "y": 90
+        },
+        {
+          "model": "opcompat:block/cat_bed_2",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "facing": "south"
       },
-      {
-        "model": "opcompat:block/cat_bed_2",
-        "y": 180,
-        "weight": 1
-      }
-    ],
-    "facing=west": [
-      {
-        "model": "opcompat:block/cat_bed_1",
-        "y": 270,
-        "weight": 1
+      "apply": [
+        {
+          "model": "opcompat:block/cat_bed_1",
+          "y": 180
+        },
+        {
+          "model": "opcompat:block/cat_bed_2",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "facing": "west"
       },
-      {
-        "model": "opcompat:block/cat_bed_2",
-        "y": 270,
-        "weight": 1
-      }
-    ]
-  }
+      "apply": [
+        {
+          "model": "opcompat:block/cat_bed_1",
+          "y": 270
+        },
+        {
+          "model": "opcompat:block/cat_bed_2",
+          "y": 270
+        }
+      ]
+    }
+  ]
 }
