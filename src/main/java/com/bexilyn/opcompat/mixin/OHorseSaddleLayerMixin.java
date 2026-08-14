@@ -1,31 +1,28 @@
 package com.bexilyn.opcompat.mixin;
 
-import com.dragn0007.dragnlivestock.entities.horse.OHorse;
-import com.dragn0007.dragnlivestock.entities.horse.OHorseSaddleLayer;
 import com.bexilyn.opcompat.compat.TransmogHelper;
+import com.dragn0007.dragnlivestock.entities.horse.OHorseSaddleLayer;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(value = OHorseSaddleLayer.class, remap = false)
 public abstract class OHorseSaddleLayerMixin {
 
     /**
-     * Replaces the saddle ItemStack used by the horse saddle renderer
-     * with its Transmog appearance.
-     * The real saddle equipped on the horse remains unchanged.
+     * Replaces the saddle ItemStack local variable used by
+     * OHorseSaddleLayer#render with its Transmog appearance.
+     *
+     * The actual equipped saddle remains untouched.
      */
-    @Redirect(
+    @ModifyVariable(
             method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/dragn0007/dragnlivestock/entities/horse/OHorse;getSaddleItem()Lnet/minecraft/world/item/ItemStack;",
-                    remap = false
-            ),
+            at = @At("STORE"),
+            ordinal = 0,
             remap = false
     )
-    private ItemStack optransmog$useTransmogSaddle(OHorse horse) {
-        return TransmogHelper.getVisualStack(horse.getSaddleItem());
+    private ItemStack opcompat$useTransmogSaddle(ItemStack saddleStack) {
+        return TransmogHelper.getVisualStack(saddleStack);
     }
 }

@@ -37,5 +37,4 @@ public class OPCompat {
     }
 }
 
-// TODO: BUG - Restarting resets transmogs
 // TODO: wool colour dependence on collar colour
