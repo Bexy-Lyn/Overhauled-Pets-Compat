@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "opcompat.refmap.json",
   "client": [
-    "ODogDecorLayerMixin"
+    "ODogDecorLayerMixin",
+    "OHorseArmorLayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
