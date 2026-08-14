@@ -3,6 +3,8 @@ package com.bexilyn.opcompat;
 import com.bexilyn.opcompat.config.ModServerConfig;
 import com.bexilyn.opcompat.registry.ModBlockEntities;
 import com.bexilyn.opcompat.registry.ModBlocks;
+import com.bexilyn.opcompat.registry.ModCreativeTabs;
+import com.bexilyn.opcompat.registry.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -23,11 +25,13 @@ public class OPCompat {
 
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModCreativeTabs.register(modEventBus);
 
         context.registerConfig(
-                        ModConfig.Type.SERVER,
-                        ModServerConfig.SPEC
-                );
+            ModConfig.Type.SERVER,
+            ModServerConfig.SPEC
+        );
 
         LOGGER.info("Overhauled Pets Transmog Compat initialized.");
     }
@@ -35,4 +39,4 @@ public class OPCompat {
 
 // TODO: Claim Particles
 // BUG: Restarting resets transmogs
-// TODO: Refractor reusable functions
+// TODO: Crafting recipes
