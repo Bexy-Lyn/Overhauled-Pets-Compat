@@ -5,9 +5,11 @@ import com.bexilyn.opcompat.data.PetBedSavedData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,6 +31,8 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
 
     private UUID linkedPetUuid;
     private String linkedPetName;
+
+    private DyeColor bedColor = DyeColor.WHITE;
 
     private int claimTicker = 0;
     private long lastHandledDay = -1L;
@@ -220,6 +224,15 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
                         worldPosition
                 );
 
+        /*
+         * Allow the concrete bed type to alter its appearance
+         * based on the claiming animal.
+         */
+        onPetClaimed(
+                level,
+                pet
+        );
+
         setChanged();
 
         level.sendBlockUpdated(
@@ -230,6 +243,17 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
         );
 
         spawnClaimParticles(level);
+    }
+
+    /**
+     * Called after a pet successfully claims this bed.
+     * Concrete bed types may use this to update purely visual
+     * properties such as collar-matched wool.
+     */
+    protected void onPetClaimed(
+            ServerLevel level,
+            T pet
+    ) {
     }
 
     /*
@@ -261,6 +285,15 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
         T pet =
                 searchClass.cast(entity);
 
+        /*
+         * Refresh bed-specific visual information
+         * such as collar colour.
+         */
+        refreshPetAppearance(
+                level,
+                pet
+        );
+
         String currentName =
                 pet.getDisplayName()
                         .getString();
@@ -280,6 +313,62 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
                 getBlockState(),
                 3
         );
+    }
+
+    /*
+     * =============================================================
+     * COLOUR HANDLING
+     * =============================================================
+     */
+
+    /**
+     * Called periodically while the linked pet is loaded.
+     * Useful for visual properties that may change after claiming,
+     * such as collar colour.
+     */
+    protected void refreshPetAppearance(
+            ServerLevel level,
+            T pet
+    ) {
+    }
+
+    public DyeColor getBedColor() {
+        return bedColor;
+    }
+
+    protected void setBedColor(
+            ServerLevel level,
+            DyeColor color
+    ) {
+
+        if (color == null) {
+            color = DyeColor.WHITE;
+        }
+
+        if (bedColor == color) {
+            return;
+        }
+
+        bedColor = color;
+
+        setChanged();
+
+        level.sendBlockUpdated(
+                worldPosition,
+                getBlockState(),
+                getBlockState(),
+                3
+        );
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     /*
@@ -502,10 +591,6 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
         return linkedPetUuid != null;
     }
 
-    public UUID getLinkedPetUuid() {
-        return linkedPetUuid;
-    }
-
     public String getLinkedPetName() {
         return linkedPetName;
     }
@@ -527,6 +612,7 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
 
         linkedPetUuid = null;
         linkedPetName = null;
+        bedColor = DyeColor.WHITE;
 
         setChanged();
 
@@ -572,6 +658,11 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
             );
         }
 
+        tag.putInt(
+                "BedColor",
+                bedColor.getId()
+        );
+
         tag.putLong(
                 "LastHandledDay",
                 lastHandledDay
@@ -601,6 +692,19 @@ public abstract class PetBedBlockEntity<T extends LivingEntity>
                 tag.getLong(
                         "LastHandledDay"
                 );
+
+        if (tag.contains("BedColor")) {
+
+            bedColor =
+                    DyeColor.byId(
+                            tag.getInt("BedColor")
+                    );
+
+        } else {
+
+            bedColor =
+                    DyeColor.WHITE;
+        }
     }
 
     /*

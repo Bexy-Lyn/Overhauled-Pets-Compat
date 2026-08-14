@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class CatBedBlock extends PetBedBlock {
+public class CatBedBlock extends ColoredPetBedBlock {
 
     public CatBedBlock(
             Properties properties

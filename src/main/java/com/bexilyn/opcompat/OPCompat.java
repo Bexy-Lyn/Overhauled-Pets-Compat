@@ -36,5 +36,3 @@ public class OPCompat {
         LOGGER.info("Overhauled Pets Transmog Compat initialized.");
     }
 }
-
-// TODO: wool colour dependence on collar colour
